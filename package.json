@@ -1,0 +1,26 @@
+{
+  "name": "cliff.js",
+  "version": "1.0.0",
+  "description": "An automated test generation library written in JavaScript",
+  "main": "dist/cliff.js",
+  "scripts": {
+    "build": "npx tsc",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lpizzinidev/cliff.js.git"
+  },
+  "author": "lpizzinidev",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lpizzinidev/cliff.js/issues"
+  },
+  "homepage": "https://github.com/lpizzinidev/cliff.js#readme",
+  "dependencies": {
+    "jest": "^29.3.1"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.3"
+  }
+}
