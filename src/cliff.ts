@@ -1,89 +1,82 @@
 'use strict';
 
-enum CliffTypes {
-    String,
-    Number
+export enum CliffTypes {
+  number,
+  string,
 }
 
 type CliffStringOpts = {
-    length: number,
-    alphabet: string
-}
+  length: number;
+  alphabet: string;
+};
 
 type CliffNumberOpts = {
-    max: number,
-    min?: number
-}
+  max: number;
+  min?: number;
+};
 
 type CliffVectorOpts<T extends CliffTypes> = {
-    type: T extends CliffTypes.String ? 'string' : 'number',
-    length: number,
-    itemOpts: T extends CliffTypes.String ? CliffStringOpts : CliffNumberOpts
-}
+  type?: T;
+  length: number;
+  itemOpts: T extends number ? CliffNumberOpts : CliffStringOpts;
+};
 
 type CliffMatrixOpts<T extends CliffTypes> = {
-    type: T extends CliffTypes.String ? 'string' : 'number',
-    width: number,
-    height: number,
-    itemOpts: T extends CliffTypes.String ? CliffStringOpts : CliffNumberOpts
-}
+  type?: T;
+  width: number;
+  height: number;
+  itemOpts: T extends number ? CliffNumberOpts : CliffStringOpts;
+};
 
 export enum CliffAlphabets {
-    LETTERS = 'abcdefghijklmnopqrstuvwxyz',
-    DIGITS = '0123456789',
-    BINARIES = '01'
+  LETTERS = 'abcdefghijklmnopqrstuvwxyz',
+  DIGITS = '0123456789',
+  BINARIES = '01',
 }
 
 export const generateString = (opts: CliffStringOpts): string => {
-    let result = '';
-    for (var i = 0; i < opts.length; i++) {
-        result += opts.alphabet[Math.floor(Math.random() * opts.alphabet.length)];
-    }
-    return result;
-}
+  let result = '';
+  for (var i = 0; i < opts.length; i++) {
+    result += opts.alphabet[Math.floor(Math.random() * opts.alphabet.length)];
+  }
+  return result;
+};
 
 export const generateNumber = (opts: CliffNumberOpts): number => {
-    return Math.floor(Math.random() * opts.max) + (opts.min || 0);
-}
+  return Math.floor(Math.random() * opts.max) + (opts.min || 0);
+};
 
-export const generateVector = <T extends CliffTypes>(opts: CliffVectorOpts<T>): any[] => {
-    const res = [];
-    let generator;
+export const generateVector = <T extends CliffTypes>(
+  opts: CliffVectorOpts<T>
+): T[] => {
+  const res = [];
+  for (let i = 0; i < opts.length; i++) {
     switch (opts.type) {
-        case 'string':
-            generator = generateString(opts.itemOpts as CliffStringOpts);
-            break;
-        case 'number':
-            generator = generateNumber(opts.itemOpts as CliffNumberOpts);
-            break;
-        default:
-            return res;
+      case CliffTypes.number:
+        res.push(generateNumber(opts.itemOpts as CliffNumberOpts));
+        break;
+      case CliffTypes.string:
+        res.push(generateString(opts.itemOpts as CliffStringOpts));
+        break;
+      default:
+        return res;
     }
-    for (let i = 0; i < opts.length; i++) {
-        res.push(generator());
-    }
-    return res;
-}
+  }
+  return res;
+};
 
-export const generateMatrix = <T extends CliffTypes>(opts: CliffMatrixOpts<T>): any[] => {
-    const res = [];
-    let generator;
-    switch (opts.type) {
-        case 'string':
-            generator = generateString(opts.itemOpts as CliffStringOpts);
-            break;
-        case 'number':
-            generator = generateNumber(opts.itemOpts as CliffNumberOpts);
-            break;
-        default:
-            return res;
-    }
-    for (let i = 0; i < opts.width; i++) {
-        const row = [];
-        for (let j = 0; j < opts.height; j++) {
-            row.push(generator());
-        }
-        res.push(row);
-    }
-    return res;
-}
+export const generateMatrix = <T extends CliffTypes>(
+  opts: CliffMatrixOpts<T>
+): T[][] => {
+  const res = [];
+  for (let i = 0; i < opts.width; i++) {
+    res.push(
+      generateVector<T>({
+        type: opts.type,
+        length: opts.height,
+        itemOpts: opts.itemOpts,
+      })
+    );
+  }
+  return res;
+};
