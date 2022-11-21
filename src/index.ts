@@ -7,7 +7,7 @@ export enum CliffTypes {
 
 type CliffStringOpts = {
   length: number;
-  alphabet: string;
+  alphabet?: string;
 };
 
 type CliffNumberOpts = {
@@ -35,6 +35,10 @@ export enum CliffAlphabets {
 }
 
 export const generateString = (opts: CliffStringOpts): string => {
+  if (opts.length < 0) throw 'Length must be greater than zero';
+  // Default alphabet to lowercase english letters
+  if (opts.alphabet === undefined) opts.alphabet = CliffAlphabets.LETTERS
+  if (opts.alphabet.length === 0) throw 'Alphabet must contain at least one character';
   let result = '';
   for (var i = 0; i < opts.length; i++) {
     result += opts.alphabet[Math.floor(Math.random() * opts.alphabet.length)];
