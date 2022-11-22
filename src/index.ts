@@ -41,18 +41,22 @@ export const generateString = (opts: CliffStringOpts): string => {
   if (opts.alphabet.length === 0) throw 'Alphabet must contain at least one character';
   let result = '';
   for (var i = 0; i < opts.length; i++) {
-    result += opts.alphabet[Math.floor(Math.random() * opts.alphabet.length)];
+    result += opts.alphabet[generateNumber({ max: opts.alphabet.length })];
   }
   return result;
 };
 
 export const generateNumber = (opts: CliffNumberOpts): number => {
-  return Math.floor(Math.random() * opts.max) + (opts.min || 0);
+  const max = opts.max;
+  const min = opts.min || 0;
+  if (max < min) throw 'Maximum value must be greater than or equal to minimum value';
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
 export const generateVector = <T extends CliffTypes>(
   opts: CliffVectorOpts<T>
 ): T[] => {
+  if (opts.length <= 0) throw 'Length must be greater than zero';
   const res = [];
   for (let i = 0; i < opts.length; i++) {
     switch (opts.type) {
@@ -63,7 +67,7 @@ export const generateVector = <T extends CliffTypes>(
         res.push(generateString(opts.itemOpts as CliffStringOpts));
         break;
       default:
-        return res;
+        break;
     }
   }
   return res;
@@ -72,6 +76,8 @@ export const generateVector = <T extends CliffTypes>(
 export const generateMatrix = <T extends CliffTypes>(
   opts: CliffMatrixOpts<T>
 ): T[][] => {
+  if (opts.width <= 0) throw 'Width must be greater than zero';
+  if (opts.height <= 0) throw 'Height must be greater than zero';
   const res = [];
   for (let i = 0; i < opts.width; i++) {
     res.push(
