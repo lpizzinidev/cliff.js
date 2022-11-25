@@ -1,6 +1,6 @@
 {
   "name": "cliff.js",
-  "version": "1.0.2",
+  "version": "1.0.5",
   "description": "An automated test generation library written in JavaScript",
   "main": "dist/index.js",
   "scripts": {

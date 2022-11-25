@@ -41,7 +41,7 @@ export const generateString = (opts: CliffStringOpts): string => {
   if (opts.alphabet.length === 0) throw 'Alphabet must contain at least one character';
   let result = '';
   for (var i = 0; i < opts.length; i++) {
-    result += opts.alphabet[generateNumber({ max: opts.alphabet.length })];
+    result += opts.alphabet[generateNumber({ max: opts.alphabet.length - 1 })];
   }
   return result;
 };
