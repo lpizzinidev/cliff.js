@@ -43,8 +43,19 @@ You can access a predefined set of alphabets using `CliffAlphabets`.
 ```
 import { CliffAlphabets } from 'cliff.js';
 
-const str3 = generateString({ length: 10, alphabet: CliffAlphabets.DIGITS });
+const str3 = generateString({ length: 10, alphabet: CliffAlphabets.NUMBERS });
 ```
+
+Currently `CliffAlphabets` supports the following default alphabets:
+- `ALL_LETTERS`: List of all lowercase and uppercase letters in the English alphabet.
+- `LOWER_LETTERS`: List of all lowercase letters in the English alphabet.
+- `UPPER_LETTERS`: List of all uppercase letters in the English alphabet.
+- `ALL_VOWELS`: List of all lowercase and uppercase vowels in the English alphabet.
+- `LOWER_VOWELS`: List of all lowercase vowels in the English alphabet.
+- `UPPER_VOWELS`: List of all uppercase vowels in the English alphabet.
+- `NUMBERS`: List of all the digits between 0 and 9.
+- `BINARIES`: List of binary digits (0 and 1).
+- `ALPHA_NUMERICS`: List of all lowercase and uppercase letters in the English alphabet and all the digits between 0 and 9.
 
 ### Generate a random vector
 You can generate a vector of specified `length` using the `generateVector` method.
