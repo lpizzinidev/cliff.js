@@ -29,15 +29,21 @@ type CliffMatrixOpts<T extends CliffTypes> = {
 };
 
 export enum CliffAlphabets {
-  LETTERS = 'abcdefghijklmnopqrstuvwxyz',
-  DIGITS = '0123456789',
+  ALL_LETTERS = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
+  ALL_VOWELS = 'aeiouAEIOU',
+  ALPHA_NUMERICS = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',
   BINARIES = '01',
+  LOWER_LETTERS = 'abcdefghijklmnopqrstuvwxyz',
+  LOWER_VOWELS = 'aeiou',
+  NUMBERS = '0123456789',
+  UPPER_LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+  UPPER_VOWELS = 'AEIOU',
 }
 
 export const generateString = (opts: CliffStringOpts): string => {
   if (opts.length < 0) throw 'Length must be greater than zero';
   // Default alphabet to lowercase english letters
-  if (opts.alphabet === undefined) opts.alphabet = CliffAlphabets.LETTERS
+  if (opts.alphabet === undefined) opts.alphabet = CliffAlphabets.LOWER_LETTERS
   if (opts.alphabet.length === 0) throw 'Alphabet must contain at least one character';
   let result = '';
   for (var i = 0; i < opts.length; i++) {
