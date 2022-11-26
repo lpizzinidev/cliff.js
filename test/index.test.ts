@@ -4,6 +4,7 @@ import {
   generateNumber,
   generateVector,
   generateMatrix,
+  repeat,
 } from '../src/index';
 
 describe('Cliff.js', () => {
@@ -132,5 +133,60 @@ describe('Cliff.js', () => {
         itemOpts: { max: 10 },
       });
     }).toThrow('Height must be greater than zero');
+  });
+
+  describe('repeat()', () => {
+    it('should generate a repeated sequence of numbers', () => {
+      const res = repeat(() => generateNumber({ max: 10 }), 10);
+      const split = res.split('\n');
+      expect(split.length).toEqual(10);
+      for (const num of split) {
+        expect(Number(num)).not.toBeNaN();
+      }
+    });
+
+    it('should generate a repeated sequence of strings', () => {
+      const res = repeat(() => generateString({ length: 10 }), 10);
+      const split = res.split('\n');
+      expect(split.length).toEqual(10);
+      for (const str of split) {
+        expect(str.length).toEqual(10);
+      }
+    });
+
+    it('should generate a repeated sequence of vectors', () => {
+      const res = repeat(
+        () =>
+          generateVector({
+            type: CliffTypes.number,
+            length: 10,
+            itemOpts: { max: 10 },
+          }),
+        10
+      );
+      const split = res.split('\n');
+      expect(split.length).toEqual(10);
+    });
+
+    it('should generate a repeated sequence of matrices', () => {
+      const res = repeat(
+        () =>
+          generateMatrix({
+            type: CliffTypes.number,
+            width: 2,
+            height: 2,
+            itemOpts: { max: 10 },
+          }),
+        10
+      );
+      const split = res.split('\n');
+      expect(split.length).toEqual(10);
+    });
+
+    it('should handle negative `times` parameter values', () => {
+      const res = repeat(() => generateNumber({ max: 10 }), -10);
+      const split = res.split('\n');
+      expect(split.length).toEqual(1);
+    });
   });
 });

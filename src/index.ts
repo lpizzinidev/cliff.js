@@ -40,6 +40,17 @@ export enum CliffAlphabets {
   UPPER_VOWELS = 'AEIOU',
 }
 
+export const repeat = (generator: () => any, times: number): string => {
+  // Handle non-positive `times` parameter
+  times = Math.max(1, times);
+  let result = '';
+  for (let i = 0; i < times; i++) { 
+    result += generator().toString();
+    if (i < times - 1) result += '\n';
+  }
+  return result;
+}
+
 export const generateString = (opts: CliffStringOpts): string => {
   if (opts.length < 0) throw 'Length must be greater than zero';
   // Default alphabet to lowercase english letters
