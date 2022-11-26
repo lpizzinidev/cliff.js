@@ -1,6 +1,6 @@
 {
   "name": "cliff.js",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "description": "An automatic test case generator tool written in TypeScript",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
