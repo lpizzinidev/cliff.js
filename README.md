@@ -17,7 +17,7 @@ npm install cliff.js
 
 ### Generate a random number
 You can generate a random number using the `generateNumber` method.
-The method accepts two options:
+The method accepts an object parameter with two options:
 - `max`: Maximum value of the generated number (inclusive).
 - `min`: Minimum value of the generated number (inclusive, defaults to 0).
 ```
@@ -29,7 +29,7 @@ const num2 = generateNumber({ max: 10, min: 5 });
 
 ### Generate a random string
 You can generate a random string using the `generateString` method.
-The method accepts two options:
+The method accepts an object parameter with two options:
 - `length`: The length of the generated string.
 - `alphabet`: The set of characters that will be used to generate the string (defaults to lowercase english letters).
 ```
@@ -59,7 +59,7 @@ Currently `CliffAlphabets` supports the following default alphabets:
 
 ### Generate a random vector
 You can generate a vector of specified `length` using the `generateVector` method.
-The method accepts three options:
+The method accepts an object parameter with three options:
 - `type`: The type of the elements in the vector specified as a `CliffTypes`.
 - `length`: The length of the vector.
 - `itemOpts`: The options for the generation of each element in the vector.
@@ -72,7 +72,7 @@ const strVec = generateVector({ type: CliffTypes.string, length: 10, itemOpts: {
 
 ### Generate a random matrix
 You can generate a matrix of specified `width` and `height` using the `generateMatrix` method.
-The method accepts four options:
+The method accepts an object parameter with four options:
 - `type`: The type of the elements in the matrix specified as a `CliffTypes`.
 - `width`: The width of the matrix.
 - `height`: The height of the matrix.
@@ -93,6 +93,17 @@ const strMat = generateVector({
     height: 2, 
     itemOpts: { length: 10 } 
 });
+```
+
+### Generate repeated values
+You can generate repeated values for each of the above functions by using the `repeat` method.
+The method accepts two parameters:
+- `generator`: A callback function specifying the generator used
+- `times`: The number of times the generator call will be repeated.
+```
+import { repeat, generateNumber } from 'cliff.js';
+
+const repNum = repeat(() => generateNumber({ max: 10 }), 10);
 ```
 
 ## License
